@@ -1,0 +1,25 @@
+.chart-container {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+}
+
+.chart-header {
+  margin-bottom: 24px;
+}
+
+.chart-header h3 {
+  font-size: 1.1rem;
+}
+
+.chart-header p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chart-wrapper {
+  margin-left: -20px;
+}

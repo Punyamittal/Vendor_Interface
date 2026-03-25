@@ -1,0 +1,134 @@
+.live-order-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.live-order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.live-order-card.pending {
+  border-left: 4px solid var(--warning);
+}
+
+.live-order-card.accepted {
+  border-left: 4px solid var(--success);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-id {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-family: 'Outfit';
+  font-size: 1rem;
+}
+
+.order-timer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.order-items {
+  padding: 8px 0;
+  border-top: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-row {
+  display: flex;
+  font-size: 0.85rem;
+  gap: 8px;
+}
+
+.item-qty {
+  color: var(--accent);
+  font-weight: 600;
+  min-width: 24px;
+}
+
+.item-name {
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.order-total {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-total .label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.order-total .amount {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.card-actions button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.btn-reject {
+  background: #fef2f2;
+  color: var(--danger);
+}
+
+.btn-reject:hover { background: #fee2e2; }
+
+.btn-accept {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-complete {
+  background: var(--success);
+  color: white;
+  width: 100%;
+}
