@@ -103,26 +103,30 @@ export function useMenuSync(shopId) {
 
   async function updateItem(itemId, updates) {
     try {
-      const categoryName = typeof updates?.category === 'string' ? updates.category : null
+      const payload = { ...updates }
 
-      let categoryId = null
-      if (categoryName) {
-        const { data: catData, error: catErr } = await supabase
-          .from('categories')
-          .select('id')
-          .eq('name', categoryName)
-          .maybeSingle()
+      // Only handle category lookup if the key is explicitly present
+      if ('category' in updates) {
+        const categoryName = typeof updates.category === 'string' ? updates.category : null
+        let categoryId = null
 
-        if (catErr) return catErr
-        if (catData?.id) categoryId = catData.id
+        if (categoryName) {
+          const { data: catData, error: catErr } = await supabase
+            .from('categories')
+            .select('id')
+            .eq('name', categoryName)
+            .maybeSingle()
+
+          if (catErr) return catErr
+          if (catData?.id) categoryId = catData.id
+        }
+        payload.category_id = categoryId
+        delete payload.category
       }
 
-      const payload = {
-        ...updates,
-        price: updates?.price === '' ? null : Number(updates.price),
-        category_id: categoryId,
+      if ('price' in updates) {
+        payload.price = updates.price === '' ? null : Number(updates.price)
       }
-      delete payload.category
 
       const { error } = await supabase.from('menu_items').update(payload).eq('id', itemId)
       return error
@@ -140,8 +144,8 @@ export function useMenuSync(shopId) {
     return error
   }
 
-  async function toggleAvailability(itemId, currentValue) {
-    return updateItem(itemId, { is_available: !currentValue })
+  async function toggleAvailability(itemId, targetValue) {
+    return updateItem(itemId, { is_available: targetValue })
   }
 
   async function updateQuantity(itemId, quantity) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit2, Trash2, Plus, Minus } from 'lucide-react';
+import { Edit2, Trash2, AlertCircle } from 'lucide-react';
 import { formatCurrency } from '../../utils/formatCurrency';
 import './MenuItemCard.css';
 
@@ -9,43 +9,70 @@ const MenuItemCard = ({ item, onEdit, onDelete, onToggleAvailability }) => {
       ? item.category
       : item?.category?.name || item?.category_info?.name || '';
 
+  const available = item.isAvailable;
+
   return (
-    <div className={`menu-item-card ${!item.isAvailable ? 'unavailable' : ''}`}>
-      <div className="item-image-placeholder">
+    <div className={`menu-item-card${!available ? ' menu-item-card--unavailable' : ''}`}>
+      <div className="item-image-wrapper">
         {item.image ? (
-          <img src={item.image} alt={item.name} />
+          <img
+            src={item.image}
+            alt={item.name}
+            className={!available ? 'item-image--muted' : undefined}
+          />
         ) : (
-          <div className="emoji-icon">🍔</div>
+          <div className="item-image-placeholder" aria-hidden>
+            🍔
+          </div>
+        )}
+
+        {categoryLabel && (
+          <div className="item-category-badge">{categoryLabel}</div>
+        )}
+
+        {!available && (
+          <div className="item-unavailable-overlay">
+            <div className="item-unavailable-pill">
+              <AlertCircle size={14} className="item-unavailable-icon" aria-hidden />
+              <span>Out of stock</span>
+            </div>
+          </div>
         )}
       </div>
 
-      <div className="item-details">
-        <div className="item-header">
-          <h3>{item.name}</h3>
-          <span className="item-category">{categoryLabel}</span>
-        </div>
-        
-        <p className="item-description">{item.description}</p>
-        
-        <div className="item-price-row">
-          <span className="price">{formatCurrency(item.price)}</span>
-          <div className="availability-switch" onClick={() => onToggleAvailability(item.id, !item.isAvailable)}>
-            <div className={`switch-track ${item.isAvailable ? 'on' : 'off'}`}>
-              <div className="switch-thumb"></div>
-            </div>
-            <span className="switch-label">{item.isAvailable ? 'Available' : 'Sold Out'}</span>
-          </div>
-        </div>
+      <div className="item-body">
+        <h3 className="item-title">{item.name}</h3>
+        <p className="item-description">
+          {item.description || 'Quick and delicious daily special.'}
+        </p>
 
-        <div className="item-actions">
-          <button className="btn-edit" onClick={() => onEdit(item)}>
-            <Edit2 size={16} />
-            <span>Edit</span>
-          </button>
-          <button className="btn-delete" onClick={() => onDelete(item.id)}>
-            <Trash2 size={16} />
-            <span>Delete</span>
-          </button>
+        <div className="item-footer">
+          <div className="price-row">
+            <span className="price">{formatCurrency(item.price)}</span>
+            <button
+              type="button"
+              className={`item-active-toggle ${available ? 'active' : ''}`}
+              onClick={() => onToggleAvailability(item.id, !available)}
+              aria-pressed={available}
+              aria-label={available ? 'Mark item hidden' : 'Mark item active'}
+            >
+              <span className="toggle-switch" aria-hidden>
+                <span className="toggle-knob" />
+              </span>
+              <span className="toggle-text">{available ? 'Active' : 'Hidden'}</span>
+            </button>
+          </div>
+
+          <div className="action-buttons">
+            <button type="button" onClick={() => onEdit(item)} className="btn-card">
+              <Edit2 size={16} />
+              <span>Edit</span>
+            </button>
+            <button type="button" onClick={() => onDelete(item.id)} className="btn-card btn-delete">
+              <Trash2 size={16} />
+              <span>Delete</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

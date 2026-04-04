@@ -13,7 +13,7 @@ export function ProtectedRoute({ children }) {
     return (
       <div className="full-page-center">
         <LoadingSpinner />
-        <p style={{ marginTop: '1rem', color: '#64748b' }}>Loading your stall...</p>
+        <p style={{ marginTop: '1rem', color: '#94a3b8' }}>Loading your stall...</p>
       </div>
     );
   }
@@ -44,12 +44,18 @@ export function ProtectedRoute({ children }) {
           </button>
         </div>
         <style>{`
-          .no-shop-screen { background: #f8fafc; height: 100vh; flex-direction: column; }
-          .no-shop-card { text-align: center; max-width: 400px; padding: 2rem; }
-          .no-shop-icon { color: #94a3b8; margin-bottom: 1.5rem; }
-          .no-shop-card h2 { color: #0f172a; margin-bottom: 1rem; }
-          .no-shop-card p { color: #64748b; margin-bottom: 2rem; line-height: 1.6; }
-          .signout-btn { width: 100%; padding: 0.75rem; background: #0f172a; color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+          .no-shop-screen { background: #060a12; height: 100vh; flex-direction: column; }
+          .no-shop-card {
+            text-align: center; max-width: 420px; padding: 2.5rem;
+            border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(165deg, rgba(255,255,255,0.08) 0%, rgba(22,30,48,0.6) 100%);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
+          }
+          .no-shop-icon { color: #fb923c; margin-bottom: 1.5rem; filter: drop-shadow(0 8px 20px rgba(249,115,22,0.3)); }
+          .no-shop-card h2 { color: #f8fafc; margin-bottom: 1rem; font-family: Outfit, system-ui, sans-serif; }
+          .no-shop-card p { color: #94a3b8; margin-bottom: 2rem; line-height: 1.6; }
+          .signout-btn { width: 100%; padding: 0.85rem; background: linear-gradient(135deg, #f97316, #ea580c); color: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; box-shadow: 0 8px 28px rgba(249,115,22,0.35); }
         `}</style>
       </div>
     );

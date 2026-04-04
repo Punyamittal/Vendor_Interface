@@ -1,0 +1,52 @@
+{
+  "restaurant_name": "Alpha Toobasis Shawarma",
+  "location": "North Square, VIT Chennai",
+  "currency": "INR",
+  "categories": [
+    {
+      "name": "Shawarma",
+      "items": [
+        { "name": "Veg Shawarma", "price": 70 },
+        { "name": "Paneer Shawarma", "price": 90 },
+        { "name": "Chicken Shawarma", "price": 100 },
+        { "name": "Chicken Cheese Shawarma", "price": 120 },
+        { "name": "Special Chicken Shawarma", "price": 130 },
+        { "name": "Peri Peri Shawarma", "price": 120 },
+        { "name": "Jumbo Shawarma", "price": 150 }
+      ]
+    },
+    {
+      "name": "Plates",
+      "items": [
+        { "name": "Chicken Shawarma Plate", "price": 150 },
+        { "name": "Chicken Cheese Shawarma Plate", "price": 170 },
+        { "name": "Peri Peri Shawarma Plate", "price": 170 },
+        { "name": "Jumbo Shawarma Plate", "price": 200 }
+      ]
+    },
+    {
+      "name": "Rolls & Wraps",
+      "items": [
+        { "name": "Chicken Roll", "price": 80 },
+        { "name": "Egg Roll", "price": 60 },
+        { "name": "Double Chicken Roll", "price": 120 }
+      ]
+    },
+    {
+      "name": "Add-ons",
+      "items": [
+        { "name": "Extra Cheese", "price": 20 },
+        { "name": "Extra Chicken", "price": 40 },
+        { "name": "Extra Mayo", "price": 10 }
+      ]
+    },
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Pepsi / Coke", "price": 40 },
+        { "name": "Water Bottle", "price": 20 },
+        { "name": "Mint Lime", "price": 40 }
+      ]
+    }
+  ]
+}

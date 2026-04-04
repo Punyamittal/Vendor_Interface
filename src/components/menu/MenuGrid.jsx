@@ -1,9 +1,9 @@
 import React from 'react';
-import './MenuGrid.css';
+import './MenuCardStyles.css';
 
 const MenuGrid = ({ children }) => {
   return (
-    <div className="menu-grid">
+    <div className="menu-grid-css">
       {children}
     </div>
   );

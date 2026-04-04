@@ -1,12 +1,19 @@
 import { supabase } from '../lib/supabaseClient'
 
 export const shopService = {
+  /** Updates DB and returns the new row so UI matches server (RLS errors surface here). */
   toggleShopAcceptingOrders: async (shopId, current) => {
-    const { error } = await supabase
+    if (!shopId) {
+      return { data: null, error: new Error('Missing shop ID') }
+    }
+    const next = !current
+    const { data, error } = await supabase
       .from('shops')
-      .update({ is_accepting_orders: !current })
+      .update({ is_accepting_orders: next })
       .eq('id', shopId)
-    return error
+      .select('id, is_accepting_orders')
+      .single()
+    return { data, error }
   },
 
   getShopData: async (shopId) => {

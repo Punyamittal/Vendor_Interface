@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import VendorShell from '../components/layout/VendorShell';
 import LiveOrderCard from '../components/orders/LiveOrderCard';
 import EmptyState from '../components/common/EmptyState';
-import { ShoppingBag, ChevronRight } from 'lucide-react';
+import { ShoppingBag, Power } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useLiveOrders } from '../hooks/useLiveOrders';
 import { orderService } from '../services/orderService';
 import { formatCurrency } from '../utils/formatCurrency';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import './LiveOrders.css';
 
 const LiveOrders = () => {
-  const { shopId } = useAuth();
+  const { shopId, shop } = useAuth();
+  const acceptingOrders = shop?.is_accepting_orders !== false;
   const { liveOrders, completedToday, loading, refetch } = useLiveOrders(shopId);
 
   const pendingOrders = liveOrders.filter(o => o.status === 'pending');
@@ -31,9 +32,17 @@ const LiveOrders = () => {
 
   return (
     <VendorShell title="Live Orders">
-      <Toaster position="top-right" />
       <div className="live-orders-layout">
         <div className="main-column">
+          {!acceptingOrders && (
+            <div className="offline-shop-banner" role="status">
+              <Power size={18} aria-hidden />
+              <div className="offline-shop-banner__text">
+                <strong>Store is offline</strong>
+                <span>New orders from customers are paused. Turn the shop on from the header when you are ready.</span>
+              </div>
+            </div>
+          )}
           <div className="orders-summary-bar">
             {/* ... JSX remains similar, but using liveOrders and pendingOrders lengths ... */}
             <div className="summary-card">

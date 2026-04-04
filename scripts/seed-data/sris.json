@@ -1,0 +1,73 @@
+{
+  "restaurant_name": "Sri's",
+  "location": "North Square, VIT Chennai",
+  "currency": "INR",
+  "categories": [
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Samosa", "price": 20 },
+        { "name": "Kachori", "price": 25 },
+        { "name": "Veg Patty", "price": 30 },
+        { "name": "Paneer Patty", "price": 40 }
+      ]
+    },
+    {
+      "name": "Chaat Items",
+      "items": [
+        { "name": "Samosa Chaat", "price": 60 },
+        { "name": "Kachori Chaat", "price": 60 },
+        { "name": "Dahi Samosa", "price": 70 },
+        { "name": "Dahi Kachori", "price": 70 },
+        { "name": "Pani Puri", "price": 40 },
+        { "name": "Bhel Puri", "price": 50 },
+        { "name": "Dahi Puri", "price": 60 },
+        { "name": "Pav Bhaji", "price": 80 },
+        { "name": "Dahi Papdi", "price": 60 },
+        { "name": "Papdi Chaat", "price": 60 },
+        { "name": "Sev Puri", "price": 50 }
+      ]
+    },
+    {
+      "name": "Pasta Menu",
+      "items": [
+        { "name": "White Pasta", "half_price": 110, "full_price": 200 },
+        { "name": "Red Pasta", "half_price": 110, "full_price": 200 },
+        { "name": "Pink Pasta", "half_price": 110, "full_price": 200 }
+      ]
+    },
+    {
+      "name": "Italian Specials",
+      "items": [
+        { "name": "Penne Ducale", "half_price": 110, "full_price": 200 },
+        { "name": "Penne Neapolitana", "half_price": 110, "full_price": 200 },
+        { "name": "Spaghetti Arrabiata White", "half_price": 110, "full_price": 200 },
+        { "name": "Arabian Flakes", "price": 90 },
+        { "name": "Wooden Noodles", "price": 100 },
+        { "name": "Italian Pizza", "price": 120 },
+        { "name": "Macaroni Red Sauce", "half_price": 110, "full_price": 200 },
+        { "name": "Macaroni White Sauce", "half_price": 110, "full_price": 200 }
+      ]
+    },
+    {
+      "name": "Fries",
+      "items": [
+        { "name": "Spicy Fries", "price": 60 },
+        { "name": "Creamy Fries", "price": 80 },
+        { "name": "Cheese Fries", "price": 90 }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        { "name": "Sweet Lassi", "price": 40 },
+        { "name": "Buttermilk", "price": 30 },
+        { "name": "Lemon Mint", "price": 40 }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [{ "name": "Ice Cream (Today's Special)", "price": 50 }]
+    }
+  ]
+}

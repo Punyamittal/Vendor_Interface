@@ -1,0 +1,31 @@
+Demo seed for Supabase (users, North Square shops, full menus)
+
+Run from project root:
+  npm run seed:demo
+
+Requires in .env:
+  VITE_SUPABASE_URL
+  VITE_SUPABASE_SERVICE_KEY   (service role — keep secret; prefer renaming to SUPABASE_SERVICE_ROLE_KEY and do NOT use VITE_ prefix in production)
+
+Source files (edit menus here, then re-run seed):
+  scripts/seed-data/alpha-toobasis-shawarma.json
+  scripts/seed-data/hot-cool.json
+  scripts/seed-data/georgia.json
+  scripts/seed-data/sris.json
+
+Logins (password for all accounts):
+  INDIAN@22162
+
+This React app is VENDOR ONLY. Do not sign in with super admin or college admin here—use the admin app instead.
+
+Emails:
+  super.admin@vit-chennai.seed     — super_admin (admin app, not this portal)
+  college.admin@vit-chennai.seed   — college_admin (admin app, not this portal)
+  vendor.a@vit-chennai.seed        — Vendor A → Alpha Toobasis Shawarma
+  vendor.b@vit-chennai.seed        — Vendor B → Hot & Cool
+  vendor.c@vit-chennai.seed        — Vendor C → Georgia
+  vendor.d@vit-chennai.seed        — Vendor D → Sri's
+
+Re-running the seed updates shops in place, replaces menu_items for those four shops, and ensures profiles. Auth users are not deleted if they already exist.
+
+Items with half_price + full_price in JSON become two menu rows: "(Half)" and "(Full)".

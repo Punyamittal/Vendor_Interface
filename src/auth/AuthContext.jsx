@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 const AuthContext = createContext();
@@ -7,6 +7,16 @@ const AuthContext = createContext();
 // multiple auth listeners and trigger Supabase session recovery concurrently.
 // A module-level guard prevents duplicate listeners.
 let authListenerAttached = false;
+
+const VENDOR_LOGIN_NOTICE_KEY = 'vendor_login_notice';
+
+function setVendorLoginNotice(message) {
+  try {
+    sessionStorage.setItem(VENDOR_LOGIN_NOTICE_KEY, message);
+  } catch {
+    /* ignore */
+  }
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -56,27 +66,50 @@ export function AuthProvider({ children }) {
     setLoading(true);
 
     try {
-      // 1. Get profile details
+      // 1. Get profile details (.maybeSingle avoids 406 when 0 or 2+ rows)
       const { data: profileData, error: profileErr } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', authUser.id)
-        .single();
+        .maybeSingle();
 
-      if (profileErr || !profileData) {
+      if (profileErr) {
         console.error('Profile fetch failed:', profileErr);
+        setVendorLoginNotice('Could not load your profile. Try again or contact support.');
+        await supabase.auth.signOut();
         setProfile(null);
         setShop(null);
         setMustChangePassword(false);
         return;
       }
 
-      // 2. Validate role and active status
-      if (profileData.role !== 'vendor' || !profileData.is_active) {
-        console.error('Profile not eligible:', {
-          role: profileData.role,
-          is_active: profileData.is_active,
-        });
+      if (!profileData) {
+        setVendorLoginNotice('No profile exists for this account. Contact the campus administrator.');
+        await supabase.auth.signOut();
+        setProfile(null);
+        setShop(null);
+        setMustChangePassword(false);
+        return;
+      }
+
+      // 2. Validate role and active status (role may be stored with different casing)
+      const role = String(profileData.role || '').toLowerCase().trim();
+      const isActive = profileData.is_active !== false;
+
+      if (role !== 'vendor') {
+        setVendorLoginNotice(
+          'This portal is for vendor accounts only. Super admin and college admin accounts use the admin dashboard—not this app. Sign in with a vendor email (e.g. vendor.a@vit-chennai.seed).'
+        );
+        await supabase.auth.signOut();
+        setProfile(null);
+        setShop(null);
+        setMustChangePassword(false);
+        return;
+      }
+
+      if (!isActive) {
+        setVendorLoginNotice('Your vendor account is inactive. Contact the campus administrator.');
+        await supabase.auth.signOut();
         setProfile(null);
         setShop(null);
         setMustChangePassword(false);
@@ -86,7 +119,7 @@ export function AuthProvider({ children }) {
       setProfile(profileData);
       setMustChangePassword(!!profileData.must_change_password);
 
-      // 3. Get assigned shop
+      // 3. Get assigned shop (maybeSingle: no 406 when missing; limit 1 if duplicates exist)
       const { data: shopData, error: shopErr } = await supabase
         .from('shops')
         .select(`
@@ -95,11 +128,12 @@ export function AuthProvider({ children }) {
           category:categories(name, emoji)
         `)
         .eq('owner_id', authUser.id)
-        .single();
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
-      // If there is no assigned shop, .single() can produce a 406; treat as "no shop".
       if (shopErr) {
-        console.warn('Shop fetch failed (treated as no-shop):', shopErr);
+        console.warn('Shop fetch failed:', shopErr);
         setShop(null);
         return;
       }
@@ -115,6 +149,38 @@ export function AuthProvider({ children }) {
       vendorDataRequestInFlight.current = false;
     }
   }
+
+  /** Merge server fields into the loaded shop (keeps nested location/category from the initial select). */
+  const applyShopPatch = useCallback((patch) => {
+    setShop((prev) => (prev ? { ...prev, ...patch } : null));
+  }, []);
+
+  useEffect(() => {
+    const id = shop?.id;
+    if (!id) return;
+
+    const channel = supabase
+      .channel(`vendor-shop-realtime-${id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'shops',
+          filter: `id=eq.${id}`,
+        },
+        (payload) => {
+          const row = payload.new;
+          if (!row || row.id !== id) return;
+          setShop((prev) => (prev ? { ...prev, ...row } : null));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [shop?.id]);
 
   async function login(email, password) {
     setLoading(true);
@@ -149,6 +215,7 @@ export function AuthProvider({ children }) {
       vendor: profile,
       shop,
       shopId: shop?.id,
+      applyShopPatch,
       loading,
       login,
       logout,

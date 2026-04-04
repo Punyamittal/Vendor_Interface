@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, Store, ArrowRight, AlertCircle, LogOut } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Store, ArrowRight, AlertCircle, LogOut, XCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import './Login.css';
+
+const VENDOR_LOGIN_NOTICE_KEY = 'vendor_login_notice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +16,18 @@ const Login = () => {
   const { login, logout, user, shop, profile, loading, mustChangePassword } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    try {
+      const notice = sessionStorage.getItem(VENDOR_LOGIN_NOTICE_KEY);
+      if (notice) {
+        setLocalError(notice);
+        sessionStorage.removeItem(VENDOR_LOGIN_NOTICE_KEY);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   useEffect(() => {
     if (user && profile) {

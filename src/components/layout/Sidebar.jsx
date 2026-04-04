@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, History, Utensils, IndianRupee, LogOut } from 'lucide-react';
+import { LayoutDashboard, History, Utensils, IndianRupee, LogOut, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../lib/supabaseClient';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, closeSidebar }) => {
   const { logout, profile, shop } = useAuth();
 
   const navItems = [
@@ -16,12 +16,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       <div className="sidebar-header">
         <div className="logo-container">
           <Utensils className="logo-icon" size={24} />
           <span className="logo-text">VendorPanel</span>
         </div>
+        <button className="sidebar-close-btn" onClick={closeSidebar}>
+          <X size={20} />
+        </button>
       </div>
 
       <nav className="sidebar-nav">
@@ -30,6 +33,7 @@ const Sidebar = () => {
             key={item.path} 
             to={item.path} 
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={closeSidebar}
           >
             {item.icon}
             <span>{item.name}</span>
@@ -40,7 +44,17 @@ const Sidebar = () => {
       <div className="sidebar-footer">
         <div className="vendor-info">
           <p className="vendor-name">{profile?.full_name || 'Vendor'}</p>
-          <p className="shop-name">{shop?.name || 'Assigned Shop'}</p>
+          <div className="shop-name-row">
+            <p className="shop-name">{shop?.name || 'Assigned Shop'}</p>
+            {shop?.id && (
+              <span
+                className={`shop-open-badge ${shop?.is_accepting_orders ? 'is-open' : 'is-closed'}`}
+                title={shop?.is_accepting_orders ? 'Accepting orders' : 'Not accepting orders'}
+              >
+                {shop?.is_accepting_orders ? 'Open' : 'Closed'}
+              </span>
+            )}
+          </div>
         </div>
         <button className="logout-btn" onClick={logout}>
           <LogOut size={18} />

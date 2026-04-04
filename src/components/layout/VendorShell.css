@@ -1,24 +1,50 @@
 .main-content {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  height: auto;
   min-height: 100vh;
+  transition: padding-left 0.3s ease;
+  background:
+    radial-gradient(ellipse 80% 50% at 70% 0%, rgba(249, 115, 22, 0.04), transparent),
+    linear-gradient(180deg, rgba(12, 18, 32, 0.4) 0%, transparent 40%);
 }
 
 .page-content {
   padding: 32px;
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0 ;
   width: 100%;
+  animation: page-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 990;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .page-content {
+    padding: 16px;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    overflow-y: visible;
-  }
-
   .page-content {
     padding: 16px;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
   }
 }

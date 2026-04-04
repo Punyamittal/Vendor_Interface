@@ -45,8 +45,12 @@ const AddItemModal = ({ isOpen, onClose, onSave, editingItem = null }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <form className="modal-content glass-effect" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
+    <div className="modal-overlay add-item-modal-root" onClick={onClose}>
+      <form
+        className="modal-content glass-effect add-item-modal-panel"
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={handleSubmit}
+      >
         <div className="modal-header">
           <h2>{editingItem ? 'Edit Menu Item' : 'Add New Menu Item'}</h2>
           <button type="button" className="close-btn" onClick={onClose}><X size={20} /></button>

@@ -3,6 +3,11 @@ import { TrendingUp, TrendingDown, IndianRupee } from 'lucide-react';
 import { formatCurrency } from '../../utils/formatCurrency';
 import './EarningsSummaryBar.css';
 
+const formatTrendPercent = (n) => {
+  const x = Math.abs(Number(n)) || 0;
+  return Number.isInteger(x) ? String(x) : x.toFixed(1);
+};
+
 const StatCard = ({ title, amount, trend, trendValue }) => {
   const isPositive = trend === 'up';
   
@@ -13,7 +18,7 @@ const StatCard = ({ title, amount, trend, trendValue }) => {
         <h2 className="stat-amount">{formatCurrency(amount)}</h2>
         <div className={`stat-trend ${trend}`}>
           {isPositive ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-          <span>{trendValue}% vs last period</span>
+          <span>{formatTrendPercent(trendValue)}% vs last period</span>
         </div>
       </div>
       <div className={`stat-icon-bg ${trend}`}>

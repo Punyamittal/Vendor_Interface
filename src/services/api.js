@@ -21,7 +21,10 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // IMPORTANT: don't hard-navigate here.
+      // A tab switch/background/resume often triggers in-flight requests with
+      // expired auth; hard navigation turns into a "full reload" experience.
+      // Let route guards / UI decide what to do next.
     }
     return Promise.reject(error);
   }

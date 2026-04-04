@@ -1,0 +1,161 @@
+{
+  "restaurant_name": "Hot & Cool",
+  "location": "North Square, VIT Chennai",
+  "currency": "INR",
+  "categories": [
+    {
+      "name": "Beverages",
+      "items": [
+        { "name": "Tea", "price": 15 },
+        { "name": "Coffee", "price": 15 },
+        { "name": "Black Tea/Coffee", "price": 15 },
+        { "name": "Boost", "price": 30 },
+        { "name": "Horlicks", "price": 30 },
+        { "name": "Badam Milk", "price": 30 },
+        { "name": "Ragi Malt", "price": 30 }
+      ]
+    },
+    {
+      "name": "Sandwiches",
+      "items": [
+        { "name": "Veg Sandwich", "price": 60 },
+        { "name": "Veg Cheese Sandwich", "price": 70 },
+        { "name": "Corn Sandwich", "price": 70 },
+        { "name": "Corn Cheese Sandwich", "price": 80 },
+        { "name": "Egg Sandwich", "price": 80 },
+        { "name": "Egg Cheese Sandwich", "price": 90 },
+        { "name": "Chicken Sandwich", "price": 90 },
+        { "name": "Chicken Cheese Sandwich", "price": 100 },
+        { "name": "Chilly Cheese Sandwich", "price": 80 },
+        { "name": "Special Grill Sandwich", "price": 100 }
+      ]
+    },
+    {
+      "name": "Maggi",
+      "items": [
+        { "name": "Veg Maggi", "half_price": 35, "full_price": 70 },
+        { "name": "Cheese Maggi", "half_price": 55, "full_price": 90 },
+        { "name": "Egg Maggi", "half_price": 55, "full_price": 90 },
+        { "name": "Egg Cheese Maggi", "half_price": 60, "full_price": 100 },
+        { "name": "Chicken Maggi", "half_price": 55, "full_price": 100 },
+        { "name": "Chicken Cheese Maggi", "half_price": 60, "full_price": 100 }
+      ]
+    },
+    {
+      "name": "Rolls",
+      "items": [
+        { "name": "Veg Roll", "price": 40 },
+        { "name": "Chicken Roll", "price": 60 },
+        { "name": "Egg Roll", "price": 75 }
+      ]
+    },
+    {
+      "name": "Burgers",
+      "items": [
+        { "name": "Veg Burger", "price": 60 },
+        { "name": "Veg Cheese Burger", "price": 70 },
+        { "name": "Chicken Burger", "price": 80 },
+        { "name": "Chicken Cheese Burger", "price": 90 }
+      ]
+    },
+    {
+      "name": "Omelette",
+      "items": [
+        { "name": "Omelette", "price": 30 },
+        { "name": "Cheese Omelette", "price": 40 },
+        { "name": "Bread Omelette", "price": 40 },
+        { "name": "Bread Cheese Omelette", "price": 50 },
+        { "name": "Chicken Omelette", "price": 50 },
+        { "name": "Chicken Cheese Omelette", "price": 60 }
+      ]
+    },
+    {
+      "name": "Snacks",
+      "items": [
+        { "name": "Veg Puff", "price": 20 },
+        { "name": "Egg Puff", "price": 25 },
+        { "name": "Chicken Puff", "price": 30 },
+        { "name": "Samosa", "price": 15 },
+        { "name": "Spring Potato", "price": 50 },
+        { "name": "Sweet Corn", "price": 50 },
+        { "name": "Banana Bhaji", "price": 15 },
+        { "name": "Chilli Bhaji", "price": 15 },
+        { "name": "Egg Bhaji", "price": 15 }
+      ]
+    },
+    {
+      "name": "Juices",
+      "items": [
+        { "name": "Lemon Juice", "price": 30 },
+        { "name": "Nannari Sarbath", "price": 40 },
+        { "name": "Sugarcane Juice", "price": 40 },
+        { "name": "Watermelon Juice", "price": 50 },
+        { "name": "Muskmelon Juice", "price": 50 },
+        { "name": "Orange Juice", "price": 50 },
+        { "name": "Carrot Juice", "price": 50 },
+        { "name": "Beetroot Juice", "price": 70 },
+        { "name": "Pineapple Juice", "price": 70 },
+        { "name": "Mango Juice", "price": 80 },
+        { "name": "Apple Juice", "price": 80 },
+        { "name": "Pomegranate Juice", "price": 80 },
+        { "name": "Chikku Juice", "price": 100 },
+        { "name": "Dragon Fruit Juice", "price": 100 },
+        { "name": "Litchi Juice", "price": 100 },
+        { "name": "Mixed Juice", "price": 70 },
+        { "name": "A.B.C Juice", "price": 70 },
+        { "name": "Amla Juice", "price": 60 }
+      ]
+    },
+    {
+      "name": "Milkshakes",
+      "items": [
+        { "name": "Oreo Milkshake", "price": 60 },
+        { "name": "Brownie Milkshake", "price": 60 },
+        { "name": "Chocolate Milkshake", "price": 60 },
+        { "name": "Vanilla Milkshake", "price": 60 },
+        { "name": "Bourbon Shake", "price": 60 },
+        { "name": "Mango Milkshake", "price": 70 },
+        { "name": "Pineapple Milkshake", "price": 70 },
+        { "name": "Strawberry Milkshake", "price": 80 },
+        { "name": "Pomegranate Milkshake", "price": 80 },
+        { "name": "Chikku Milkshake", "price": 100 },
+        { "name": "Dragon Fruit Milkshake", "price": 100 },
+        { "name": "Litchi Milkshake", "price": 100 },
+        { "name": "Dry Fruit Shake", "price": 100 }
+      ]
+    },
+    {
+      "name": "Lassi",
+      "items": [
+        { "name": "Salted Lassi", "price": 50 },
+        { "name": "Sweet Lassi", "price": 50 },
+        { "name": "Mint Lassi", "price": 60 },
+        { "name": "Rose Lassi", "price": 60 },
+        { "name": "Orange Lassi", "price": 70 },
+        { "name": "Mango Lassi", "price": 70 },
+        { "name": "Banana Lassi", "price": 70 },
+        { "name": "Strawberry Lassi", "price": 90 },
+        { "name": "Chocolate Lassi", "price": 90 },
+        { "name": "Kesar Pista Lassi", "price": 90 },
+        { "name": "Saffron Lassi", "price": 90 },
+        { "name": "Dry Fruit Lassi", "price": 100 }
+      ]
+    },
+    {
+      "name": "Cold Drinks",
+      "items": [
+        { "name": "Cold Boost", "price": 40 },
+        { "name": "Rose Milk", "price": 40 },
+        { "name": "Badam Milk (Cold)", "price": 40 },
+        { "name": "Cold Coffee", "price": 60 }
+      ]
+    },
+    {
+      "name": "Lunch",
+      "items": [
+        { "name": "Sambar Rice", "price": 60 },
+        { "name": "Curd Rice", "price": 60 }
+      ]
+    }
+  ]
+}

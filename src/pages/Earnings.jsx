@@ -6,6 +6,7 @@ import TopItemsEarnings from '../components/earnings/TopItemsEarnings';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { useAuth } from '../hooks/useAuth';
 import { earningsService } from '../services/earningsService';
+import { computeEarningsStats } from '../utils/revenueTrends';
 import './Earnings.css';
 
 const Earnings = () => {
@@ -22,20 +23,13 @@ const Earnings = () => {
   const fetchData = async () => {
     setLoading(true);
     const [earningsRes, topItemsRes] = await Promise.all([
-      earningsService.getEarnings(shopId, 'month'),
+      earningsService.getEarnings(shopId, 60),
       earningsService.getTopEarningItems(shopId)
     ]);
 
-    if (!earningsRes.error) {
+    if (!earningsRes.error && earningsRes.data) {
       setDailyHistory(earningsRes.data);
-      // Calculate today/week/month stats from dailyHistory for the summary bar
-      const today = earningsRes.data[earningsRes.data.length - 1]?.total_revenue || 0;
-      setStats({
-        today,
-        week: earningsRes.data.slice(-7).reduce((a, b) => a + b.total_revenue, 0),
-        month: earningsRes.data.reduce((a, b) => a + b.total_revenue, 0),
-        trends: { today: 5, week: 8, month: 12 } // Trends could be calculated or fetched from another view
-      });
+      setStats(computeEarningsStats(earningsRes.data));
     }
 
     if (!topItemsRes.error) {
@@ -56,7 +50,11 @@ const Earnings = () => {
       <EarningsSummaryBar stats={stats} />
       
       <div className="charts-row">
-        <DailyRevenueChart data={dailyHistory.map(d => ({ day: d.day.slice(5), revenue: d.total_revenue }))} />
+        <DailyRevenueChart
+          data={dailyHistory
+            .slice(-30)
+            .map((d) => ({ day: d.day.slice(5), revenue: d.total_revenue }))}
+        />
         {/* ... Info Card ... */}
       </div>
 
