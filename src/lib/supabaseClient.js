@@ -22,7 +22,9 @@ export const supabase = createClient(
       persistSession: true,
       autoRefreshToken: true,
       storageKey: 'vendor-session',
-      lock: authLockNoOp,
+      // Dev-only: avoid Navigator LockManager races with React Strict Mode + HMR.
+      // Production: use the default lock so multiple tabs coordinate token refresh.
+      ...(import.meta.env.DEV ? { lock: authLockNoOp } : {}),
     },
     realtime: {
       params: { eventsPerSecond: 20 }

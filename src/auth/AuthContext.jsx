@@ -59,6 +59,22 @@ export function AuthProvider({ children }) {
     return () => {};
   }, []);
 
+  // After a background tab is resumed, refresh Realtime auth (WS JWT) and session from storage.
+  useEffect(() => {
+    const onVisibility = async () => {
+      if (document.visibilityState !== 'visible') return;
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      if (token) {
+        void supabase.realtime.setAuth(token).catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
   async function loadVendorData(authUser) {
     if (vendorDataRequestInFlight.current) return;
     vendorDataRequestInFlight.current = true;

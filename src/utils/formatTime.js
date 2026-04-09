@@ -1,13 +1,25 @@
-import { formatDistanceToNow, format } from 'date-fns';
+import { formatDistanceToNow, format, isValid } from 'date-fns';
+
+function toDate(value) {
+  if (value == null) return null;
+  const d = value instanceof Date ? value : new Date(value);
+  return isValid(d) ? d : null;
+}
 
 export const formatRelativeTime = (date) => {
-  return formatDistanceToNow(new Date(date), { addSuffix: true });
+  const d = toDate(date);
+  if (!d) return '—';
+  return formatDistanceToNow(d, { addSuffix: true });
 };
 
 export const formatTime = (date) => {
-  return format(new Date(date), 'hh:mm a');
+  const d = toDate(date);
+  if (!d) return '—';
+  return format(d, 'hh:mm a');
 };
 
 export const formatDate = (date) => {
-  return format(new Date(date), 'dd MMM yyyy');
+  const d = toDate(date);
+  if (!d) return '—';
+  return format(d, 'dd MMM yyyy');
 };
